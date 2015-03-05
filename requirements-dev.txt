@@ -1,0 +1,5 @@
+Sphinx==1.2.3
+pytest==2.6.4
+moto==0.3.9
+pytest-capturelog==0.7
+coverage==3.7.1
