@@ -27,7 +27,7 @@ urllib.request.urlretrieve(url_of_file, outfilename)
 
 filename=yesterday.strftime("%Y-%m-%d")+".csv"
 with open(os.path.join("D:\\romania", filename), 'w', newline='') as csvfile:
-    spamwriter = csv.writer(csvfile, delimiter=' ',quotechar=',', quoting=csv.QUOTE_MINIMAL)
+    spamwriter = csv.writer(csvfile, delimiter=',',quotechar=',', quoting=csv.QUOTE_MINIMAL)
 
     workbook = xlrd.open_workbook(outfilename)
     worksheet = workbook.sheet_by_index(0)
@@ -41,8 +41,11 @@ with open(os.path.join("D:\\romania", filename), 'w', newline='') as csvfile:
         while curr_cell < num_cells-8: #többi oszlop nem érdekes
             curr_cell += 1
             if curr_cell==0:
-                datum= worksheet.cell_value(curr_row, curr_cell)
+                date = datetime.strptime(worksheet.cell_value(curr_row, curr_cell),'%d-%m-%Y %H:%M:%S')
+                date.strftime('%Y-%m-%d %H:%M:%S')
             elif curr_cell==1:
-                fogyasztas= worksheet.cell_value(curr_row, curr_cell)
-        spamwriter.writerow([datum] +[fogyasztas])
+                consumption= worksheet.cell_value(curr_row, curr_cell)
+            elif curr_cell==3:
+                produce= worksheet.cell_value(curr_row, curr_cell)
+        spamwriter.writerow([date] +[consumption]+[produce])
   

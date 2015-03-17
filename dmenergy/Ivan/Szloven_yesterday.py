@@ -21,13 +21,15 @@ xmldoc = minidom.parse(f)
 
 filename=yesterday.strftime("%Y-%m-%d")+".csv"
 with open(os.path.join("D:szlovenia", filename), 'w', newline='') as csvfile:
-    spamwriter = csv.writer(csvfile, delimiter=' ',quotechar=',', quoting=csv.QUOTE_MINIMAL)
+    spamwriter = csv.writer(csvfile, delimiter=',',quotechar=',', quoting=csv.QUOTE_MINIMAL)
 
     items = xmldoc.getElementsByTagName("item")
     for item in items:
         prevzems = item.getElementsByTagName("prevzem")
-        datum = item.getElementsByTagName("datum")[0].childNodes[0].data
+        date = datetime.strptime(item.getElementsByTagName("datum")[0].childNodes[0].data,'%d.%m.%Y %H:%M')
+        date.strftime('%Y-%m-%d %H:%M')
         for prevzem in prevzems:
-            fogyasztas = prevzem.getElementsByTagName("dejansko_MWh")[0].childNodes[0].data
-            spamwriter.writerow([datum] +[fogyasztas])
+            consumption = prevzem.getElementsByTagName("dejansko_MWh")[0].childNodes[0].data
+            forcast = prevzem.getElementsByTagName("napoved_MWh")[0].childNodes[0].data
+            spamwriter.writerow([date] +[consumption]+[forcast])
 
