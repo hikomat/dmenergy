@@ -10,7 +10,7 @@ from datetime import date,datetime,timedelta
 from dateutil.rrule import rrule, DAILY
 
 sdate = date(2000, 1, 1)
-edate = date(2015, 3, 11)
+edate = date(2015, 3, 19)
 
 def Download(url,dest,cdate):
     elso=True
@@ -23,11 +23,13 @@ def Download(url,dest,cdate):
     for line in lines:
         if elso==False and "System" in dest and not "null" in line and not line.startswith(tdate.strftime("%d/%m/%Y")):
             line=line[:-4]
+            line=line[:10]+','+line[11:]
             fx.write(line+'\n')
         elif elso==False and "Wind" in dest and not line.startswith(tdate.strftime("%d/%m/%Y")):
             line=line[:-4]            
             k = line.rsplit(" ,",1)
             line=k[0]
+            line=line[:10]+','+line[11:]
             if "null" in line:
                 line=line[:8]
             fx.write(line+'\n')

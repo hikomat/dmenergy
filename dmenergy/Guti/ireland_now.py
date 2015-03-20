@@ -25,9 +25,11 @@ def Download(url,dest):
     for line in lines:
         if elso==False and not "null" in line and not line.startswith(tdate.strftime("%d/%m/%Y")):
             line=line[:-4]
+            line=line[:10]+','+line[11:]
             if "Wind" in dest:
                 k = line.rsplit(" ,",1)
                 line=k[0]
+                line=line[:10]+','+line[11:]
             fx.write(line+'\n')
         elso=False
     fx.close()

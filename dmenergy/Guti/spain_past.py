@@ -11,8 +11,8 @@ from bs4 import BeautifulSoup
 from datetime import date
 from dateutil.rrule import rrule, DAILY
 
-sdate = date(2008, 1, 1)
-edate = date(2015,3,13)
+sdate = date(2009, 1, 1)
+edate = date(2015,3,19)
 driver = webdriver.Chrome(r'C:\Users\Dániel\Downloads\WinPython-64bit-3.4.3.1\chromedriver')
 
 def Download(url,dest):
